@@ -14,6 +14,7 @@ public class Constantes {
     public static final double RADIO_SELECCION = 20.0;
     public static final int ALTO_BARRA_ENERGIA = 5;
     public static final String RUTA_IMAGENES = "/imagenes/";
+    public static final double UMBRAL_ARRASTRE = 5.0;
 
     //  Textos 
     public static final String TEXTO_CONEXION_PERDIDA = "Se perdió la conexión con el servidor";
@@ -48,4 +49,10 @@ public class Constantes {
     public static final String JSON_DURACION_MS = "duracionMs";
     public static final String JSON_GANADOR = "ganador";
 
+    //  Claves de los mensajes que envía el cliente 
+    public static final String JSON_APODO = "apodo";
+    public static final String JSON_ANIMAL_IDS = "animalIds";
+    public static final String JSON_DESTINO_X = "targetX";
+    public static final String JSON_DESTINO_Y = "targetY";
+    public static final String JSON_OBJETIVO_ID = "objetivoId";
 }
