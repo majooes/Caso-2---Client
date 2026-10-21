@@ -17,5 +17,15 @@ public enum TipoMensaje {
     SELECCION_ANIMALES,
     PARTIDA_INICIADA,
     ACTUALIZACION_ESTADO,
-    FIN_PARTIDA
+    FIN_PARTIDA;
+
+    /** Devuelve el tipo con ese nombre, o null si no existe (así no hace falta una excepción). */
+    public static TipoMensaje buscar(String nombre) {
+        for (TipoMensaje t : values()) {
+            if (t.name().equals(nombre)) {
+                return t;
+            }
+        }
+        return null;
+    }
 }

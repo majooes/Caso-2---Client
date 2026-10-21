@@ -148,11 +148,25 @@ class ModeloClienteTest {
 
     @Test
     void cada_mensaje_notifica_a_los_observadores() {
-        int[] llamadas = {0};
-        modelo.registrarObservador(() -> llamadas[0]++);
+        ObservadorContador observador = new ObservadorContador();
+        modelo.registrarObservador(observador);
 
         modelo.procesarMensaje(new Mensaje(TipoMensaje.ERROR));
 
-        assertEquals(1, llamadas[0]);
+        assertEquals(1, observador.getLlamadas());
+    }
+
+    /** Observador de prueba: solo cuenta cuántas veces lo avisaron. */
+    private static class ObservadorContador implements ObservadorModelo {
+        private int llamadas;
+
+        @Override
+        public void modeloActualizado() {
+            llamadas++;
+        }
+
+        int getLlamadas() {
+            return llamadas;
+        }
     }
 }
