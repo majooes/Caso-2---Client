@@ -15,6 +15,9 @@ public class Constantes {
     public static final int ALTO_BARRA_ENERGIA = 5;
     public static final String RUTA_IMAGENES = "/imagenes/";
 
+    //  Textos 
+    public static final String TEXTO_CONEXION_PERDIDA = "Se perdió la conexión con el servidor";
+
     //  Claves del JSON (deben coincidir con las del servidor) 
     public static final String JSON_TIPO = "type";
     public static final String JSON_CARGA = "payload";
@@ -44,4 +47,5 @@ public class Constantes {
     public static final String JSON_APODO_B = "apodoB";
     public static final String JSON_DURACION_MS = "duracionMs";
     public static final String JSON_GANADOR = "ganador";
+
 }
