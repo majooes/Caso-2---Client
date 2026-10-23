@@ -68,7 +68,12 @@ public class ModeloCliente {
                 codigoPartida = leerTexto(c, Constantes.JSON_CODIGO, codigoPartida);
                 mensajeError = null;
             }
-            case ERROR -> mensajeError = leerTexto(c, Constantes.JSON_MENSAJE, "Error desconocido");
+            case ERROR -> {
+                mensajeError = leerTexto(c, Constantes.JSON_MENSAJE, "Error desconocido");
+                if (estado == EstadoPantalla.SELECCION) {
+                    miEspecie = null; // el servidor rechazó la especie: puede elegir otra
+                }
+            }
             case SELECCION_ANIMALES -> {
                 especiesDisponibles = leerListaTexto(c, Constantes.JSON_DISPONIBLES);
                 estado = EstadoPantalla.SELECCION;

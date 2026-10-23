@@ -64,6 +64,16 @@ class ModeloClienteTest {
     }
 
     @Test
+    void error_en_la_seleccion_permite_elegir_otra_especie() {
+        modelo.procesarMensaje(new Mensaje(TipoMensaje.SELECCION_ANIMALES));
+        modelo.setMiEspecie("JAGUAR");
+
+        modelo.procesarMensaje(new Mensaje(TipoMensaje.ERROR));
+
+        assertNull(modelo.getMiEspecie());
+    }
+
+    @Test
     void seleccion_animales_cambia_a_pantalla_de_seleccion() {
         JsonArray libres = new JsonArray();
         libres.add("JAGUAR");
