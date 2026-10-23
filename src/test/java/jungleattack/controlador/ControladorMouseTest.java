@@ -1,6 +1,7 @@
 package jungleattack.controlador;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.gson.JsonArray;
@@ -81,6 +82,24 @@ class ControladorMouseTest {
         mouse.mouseReleased(evento(MouseEvent.MOUSE_RELEASED, MouseEvent.BUTTON3, 300, 300));
 
         assertTrue(modelo.obtenerIdsSeleccionados().isEmpty());
+    }
+
+    @Test
+    void mientras_se_arrastra_guarda_el_inicio_y_la_posicion_actual() {
+        mouse.mousePressed(evento(MouseEvent.MOUSE_PRESSED, MouseEvent.BUTTON1, 10, 20));
+        mouse.mouseDragged(evento(MouseEvent.MOUSE_DRAGGED, MouseEvent.BUTTON1, 80, 90));
+
+        assertEquals(10.0, mouse.getPuntoInicio().getX(), 0.001);
+        assertEquals(80.0, mouse.getPuntoActual().getX(), 0.001);
+        assertEquals(90.0, mouse.getPuntoActual().getY(), 0.001);
+    }
+
+    @Test
+    void al_soltar_se_borra_el_arrastre() {
+        arrastrar(0, 0, 100, 100);
+
+        assertNull(mouse.getPuntoInicio());
+        assertNull(mouse.getPuntoActual());
     }
 
     @Test

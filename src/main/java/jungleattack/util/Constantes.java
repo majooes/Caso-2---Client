@@ -53,6 +53,37 @@ public class Constantes {
     public static final int LONGITUD_CODIGO = 4;
     public static final int TAMANO_ICONO_BOTON = 64;
     public static final Color COLOR_ERROR = new Color(190, 30, 30);
+
+    //  Dibujo del juego 
+    public static final String TEXTO_HUD = "Daño: %d    Tazas: %d    Bots eliminados: %d    Zona: %d";
+    public static final String TEXTO_ZONA = "Zona %d";
+    public static final String TIPO_TAZA = "TAZA";
+    public static final String TIPO_BANDERA = "BANDERA";
+    public static final int TAMANO_ANIMAL = 44;
+    public static final int TAMANO_TAZA = 30;
+    public static final int TAMANO_BANDERA = 52;
+    public static final int ANCHO_BARRA_ENERGIA = 44;
+    public static final int MAX_ENERGIA = 20;
+    public static final double ENERGIA_BAJA = 0.3;
+    public static final int INTERVALO_SNAPSHOT_MS = 50;
+    public static final int ANCHO_CAMINO = 22;
+    public static final Color COLOR_CAMINO = new Color(176, 138, 88);
+    public static final Color COLOR_BORDE_CAMINO = new Color(110, 80, 45);
+    public static final Color COLOR_MIO = new Color(40, 120, 230);
+    public static final Color COLOR_RIVAL = new Color(220, 40, 40);
+    public static final Color COLOR_BOT = new Color(120, 120, 120);
+    public static final Color COLOR_SELECCION = new Color(255, 215, 0);
+    public static final Color COLOR_RECTANGULO = new Color(255, 215, 0, 60);
+    public static final Color COLOR_BARRA_FONDO = new Color(60, 60, 60);
+    public static final Color COLOR_ENERGIA_ALTA = new Color(60, 200, 80);
+    public static final Color COLOR_ENERGIA_BAJA = new Color(230, 60, 40);
+    public static final Color COLOR_HUD_FONDO = new Color(0, 0, 0, 150);
+    public static final Color COLOR_HUD_TEXTO = Color.WHITE;
+
+    //  Resumen final 
+    public static final String TEXTO_RESUMEN_TITULO = "Fin de la partida";
+    public static final int MS_POR_SEGUNDO = 1000;
+    public static final int SEGUNDOS_POR_MINUTO = 60;
     public static final Color COLOR_TEXTO = new Color(30, 30, 30);
 
     //  Claves del JSON (deben coincidir con las del servidor) 

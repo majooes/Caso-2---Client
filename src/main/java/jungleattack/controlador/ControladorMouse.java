@@ -21,6 +21,7 @@ public class ControladorMouse extends MouseAdapter {
     private final ControladorJuego controlador;
     private final ModeloCliente modelo;
     private Punto puntoInicio;
+    private Punto puntoActual;
 
     public ControladorMouse(ControladorJuego controlador, ModeloCliente modelo) {
         this.controlador = controlador;
@@ -30,6 +31,13 @@ public class ControladorMouse extends MouseAdapter {
     @Override
     public void mousePressed(MouseEvent e) {
         puntoInicio = new Punto(e.getX(), e.getY());
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (puntoInicio != null) {
+            puntoActual = new Punto(e.getX(), e.getY());
+        }
     }
 
     @Override
@@ -46,6 +54,17 @@ public class ControladorMouse extends MouseAdapter {
             manejarClic(fin);
         }
         puntoInicio = null;
+        puntoActual = null;
+    }
+
+    /** Esquina donde empezó el arrastre, o null si no hay arrastre en curso. */
+    public Punto getPuntoInicio() {
+        return puntoInicio;
+    }
+
+    /** Posición actual del mouse durante el arrastre, o null si no hay arrastre. */
+    public Punto getPuntoActual() {
+        return puntoActual;
     }
 
     private void manejarClic(Punto punto) {
