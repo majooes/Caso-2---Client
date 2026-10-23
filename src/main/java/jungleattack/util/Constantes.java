@@ -1,5 +1,7 @@
 package jungleattack.util;
 
+import java.awt.Color;
+
 /** Valores fijos del cliente. Solo atributos static final. */
 public class Constantes {
 
@@ -15,6 +17,25 @@ public class Constantes {
     public static final int ALTO_BARRA_ENERGIA = 5;
     public static final String RUTA_IMAGENES = "/imagenes/";
     public static final double UMBRAL_ARRASTRE = 5.0;
+
+    //  Mapa (debe coincidir con el servidor) 
+    public static final int COLUMNAS_MAPA = 4;
+    public static final int FILAS_MAPA = 3;
+    public static final int ANCHO_ZONA = 800;
+    public static final int ALTO_ZONA = 600;
+
+    //  Imágenes SVG 
+    public static final String EXTENSION_IMAGEN = ".svg";
+    public static final int TAMANO_IMAGEN = 128;
+    public static final String IMAGEN_FONDO = "fondo";
+    public static final String IMAGEN_TAZA = "taza";
+    public static final String IMAGEN_BANDERA = "bandera";
+    public static final String[] ESPECIES = {
+        "JAGUAR", "PEREZOSO", "TUCAN", "LAPA", "MONO", "TAPIR", "RANA"
+    };
+    public static final String[] IMAGENES_ICONOS = {
+        "jaguar", "perezoso", "tucan", "lapa", "mono", "tapir", "rana", "taza", "bandera"
+    };
 
     //  Textos 
     public static final String TEXTO_CONEXION_PERDIDA = "Se perdió la conexión con el servidor";
