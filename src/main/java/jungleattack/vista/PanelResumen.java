@@ -15,13 +15,15 @@ public class PanelResumen extends JPanel {
     private final JTextArea texto = new JTextArea();
 
     public PanelResumen() {
-        setLayout(new BorderLayout(10, 20));
-        setBorder(BorderFactory.createEmptyBorder(60, 120, 60, 120));
+        setLayout(new BorderLayout(Constantes.ESPACIO_RESUMEN_X, Constantes.ESPACIO_RESUMEN_Y));
+        setBorder(BorderFactory.createEmptyBorder(Constantes.MARGEN_RESUMEN_VERTICAL,
+                Constantes.MARGEN_RESUMEN_HORIZONTAL, Constantes.MARGEN_RESUMEN_VERTICAL,
+                Constantes.MARGEN_RESUMEN_HORIZONTAL));
         JLabel titulo = new JLabel(Constantes.TEXTO_RESUMEN_TITULO, SwingConstants.CENTER);
-        titulo.setFont(titulo.getFont().deriveFont(30f));
+        titulo.setFont(titulo.getFont().deriveFont(Constantes.FUENTE_RESUMEN_TITULO));
         add(titulo, BorderLayout.NORTH);
         texto.setEditable(false);
-        texto.setFont(texto.getFont().deriveFont(18f));
+        texto.setFont(texto.getFont().deriveFont(Constantes.FUENTE_RESUMEN_TEXTO));
         texto.setOpaque(false);
         add(texto, BorderLayout.CENTER);
     }
@@ -53,7 +55,7 @@ public class PanelResumen extends JPanel {
         return String.format("%d:%02d", minutos, segundos);
     }
 
-    public String getTexto() {
+    String getTexto() {
         return texto.getText();
     }
 }

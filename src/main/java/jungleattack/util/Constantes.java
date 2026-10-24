@@ -3,7 +3,7 @@ package jungleattack.util;
 import java.awt.Color;
 
 /** Valores fijos del cliente. Solo atributos static final. */
-public class Constantes {
+public final class Constantes {
 
     //  Conexión 
     public static final String HOST = "localhost";
@@ -57,8 +57,6 @@ public class Constantes {
     //  Dibujo del juego 
     public static final String TEXTO_HUD = "Daño: %d    Tazas: %d    Bots eliminados: %d    Zona: %d";
     public static final String TEXTO_ZONA = "Zona %d";
-    public static final String TIPO_TAZA = "TAZA";
-    public static final String TIPO_BANDERA = "BANDERA";
     public static final int TAMANO_ANIMAL = 44;
     public static final int TAMANO_TAZA = 30;
     public static final int TAMANO_BANDERA = 52;
@@ -67,6 +65,14 @@ public class Constantes {
     public static final double ENERGIA_BAJA = 0.3;
     public static final int INTERVALO_SNAPSHOT_MS = 50;
     public static final int ANCHO_CAMINO = 22;
+    public static final int BORDE_CAMINO = 6;
+    public static final float GROSOR_ANILLO = 3f;
+    public static final int MARGEN_ANILLO = 2;
+    public static final int MARGEN_ANILLO_SELECCION = 6;
+    public static final int DISTANCIA_BARRA_ENERGIA = 12;
+    public static final int MARGEN_HUD = 6;
+    public static final int AJUSTE_VERTICAL_HUD = 4;
+    public static final int DESPEGUE_HUD = 10;
     public static final Color COLOR_CAMINO = new Color(176, 138, 88);
     public static final Color COLOR_BORDE_CAMINO = new Color(110, 80, 45);
     public static final Color COLOR_MIO = new Color(40, 120, 230);
@@ -79,6 +85,28 @@ public class Constantes {
     public static final Color COLOR_ENERGIA_BAJA = new Color(230, 60, 40);
     public static final Color COLOR_HUD_FONDO = new Color(0, 0, 0, 150);
     public static final Color COLOR_HUD_TEXTO = Color.WHITE;
+
+    //  Medidas de las pantallas 
+    public static final int ESPACIO_BOTONES_ZONA_X = 8;
+    public static final int ESPACIO_BOTONES_ZONA_Y = 6;
+    public static final int COLUMNAS_CAMPO_APODO = 14;
+    public static final int COLUMNAS_CAMPO_CODIGO = 6;
+    public static final int ESPACIO_LOBBY = 10;
+    public static final int MARGEN_LOBBY_VERTICAL = 80;
+    public static final int MARGEN_LOBBY_HORIZONTAL = 220;
+    public static final float FUENTE_TITULO = 32f;
+    public static final int ESPACIO_SELECCION_X = 10;
+    public static final int ESPACIO_SELECCION_Y = 30;
+    public static final int MARGEN_SELECCION_VERTICAL = 60;
+    public static final int MARGEN_SELECCION_HORIZONTAL = 40;
+    public static final int ESPACIO_ESPECIES = 12;
+    public static final float FUENTE_SELECCION = 24f;
+    public static final int ESPACIO_RESUMEN_X = 10;
+    public static final int ESPACIO_RESUMEN_Y = 20;
+    public static final int MARGEN_RESUMEN_VERTICAL = 60;
+    public static final int MARGEN_RESUMEN_HORIZONTAL = 120;
+    public static final float FUENTE_RESUMEN_TITULO = 30f;
+    public static final float FUENTE_RESUMEN_TEXTO = 18f;
 
     //  Resumen final 
     public static final String TEXTO_RESUMEN_TITULO = "Fin de la partida";
@@ -122,4 +150,8 @@ public class Constantes {
     public static final String JSON_DESTINO_X = "targetX";
     public static final String JSON_DESTINO_Y = "targetY";
     public static final String JSON_OBJETIVO_ID = "objetivoId";
+
+    private Constantes() {
+        // Solo atributos static final: no se crean objetos de esta clase.
+    }
 }

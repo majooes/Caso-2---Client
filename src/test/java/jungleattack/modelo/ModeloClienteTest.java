@@ -127,6 +127,26 @@ class ModeloClienteTest {
     }
 
     @Test
+    void los_objetos_del_snapshot_se_convierten_a_su_tipo_y_se_ignoran_los_desconocidos() {
+        JsonObject taza = new JsonObject();
+        taza.addProperty("tipo", "TAZA");
+        taza.addProperty("x", 10);
+        taza.addProperty("y", 20);
+        JsonObject raro = new JsonObject();
+        raro.addProperty("tipo", "ARBOL");
+        JsonArray objetos = new JsonArray();
+        objetos.add(taza);
+        objetos.add(raro);
+        JsonObject carga = new JsonObject();
+        carga.add("objetos", objetos);
+
+        modelo.procesarMensaje(new Mensaje(TipoMensaje.ACTUALIZACION_ESTADO, carga));
+
+        assertEquals(1, modelo.getObjetos().size());
+        assertEquals(TipoObjeto.TAZA, modelo.getObjetos().get(0).getTipo());
+    }
+
+    @Test
     void buscar_animal_en_un_punto() {
         modelo.procesarMensaje(snapshot(animalJson(7, false, 100, 100)));
 

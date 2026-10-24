@@ -31,12 +31,14 @@ public class PanelSeleccion extends JPanel implements ObservadorModelo {
     public PanelSeleccion(ModeloCliente modelo, ControladorJuego controlador) {
         this.modelo = modelo;
         this.controlador = controlador;
-        setLayout(new BorderLayout(10, 30));
-        setBorder(BorderFactory.createEmptyBorder(60, 40, 60, 40));
-        etiqueta.setFont(etiqueta.getFont().deriveFont(24f));
+        setLayout(new BorderLayout(Constantes.ESPACIO_SELECCION_X, Constantes.ESPACIO_SELECCION_Y));
+        setBorder(BorderFactory.createEmptyBorder(Constantes.MARGEN_SELECCION_VERTICAL,
+                Constantes.MARGEN_SELECCION_HORIZONTAL, Constantes.MARGEN_SELECCION_VERTICAL,
+                Constantes.MARGEN_SELECCION_HORIZONTAL));
+        etiqueta.setFont(etiqueta.getFont().deriveFont(Constantes.FUENTE_SELECCION));
         add(etiqueta, BorderLayout.NORTH);
 
-        JPanel centro = new JPanel(new FlowLayout(FlowLayout.CENTER, 12, 12));
+        JPanel centro = new JPanel(new FlowLayout(FlowLayout.CENTER, Constantes.ESPACIO_ESPECIES, Constantes.ESPACIO_ESPECIES));
         add(centro, BorderLayout.CENTER);
         crearBotonesEspecies(centro);
         modeloActualizado();
@@ -81,11 +83,11 @@ public class PanelSeleccion extends JPanel implements ObservadorModelo {
         }
     }
 
-    public JButton getBoton(String especie) {
+    JButton getBoton(String especie) {
         return botones.get(especie);
     }
 
-    public String getTextoEtiqueta() {
+    String getTextoEtiqueta() {
         return etiqueta.getText();
     }
 

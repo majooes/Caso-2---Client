@@ -17,19 +17,21 @@ import jungleattack.util.Constantes;
 public class PanelLobby extends JPanel {
 
     private final ControladorJuego controlador;
-    private final JTextField campoApodo = new JTextField(14);
-    private final JTextField campoCodigo = new JTextField(6);
+    private final JTextField campoApodo = new JTextField(Constantes.COLUMNAS_CAMPO_APODO);
+    private final JTextField campoCodigo = new JTextField(Constantes.COLUMNAS_CAMPO_CODIGO);
     private final JButton botonCrear = new JButton(Constantes.TEXTO_CREAR);
     private final JButton botonUnirse = new JButton(Constantes.TEXTO_UNIRSE);
     private final JLabel etiquetaMensaje = new JLabel(" ", SwingConstants.CENTER);
 
     public PanelLobby(ControladorJuego controlador) {
         this.controlador = controlador;
-        setLayout(new GridLayout(0, 1, 10, 10));
-        setBorder(BorderFactory.createEmptyBorder(80, 220, 80, 220));
+        setLayout(new GridLayout(0, 1, Constantes.ESPACIO_LOBBY, Constantes.ESPACIO_LOBBY));
+        setBorder(BorderFactory.createEmptyBorder(Constantes.MARGEN_LOBBY_VERTICAL,
+                Constantes.MARGEN_LOBBY_HORIZONTAL, Constantes.MARGEN_LOBBY_VERTICAL,
+                Constantes.MARGEN_LOBBY_HORIZONTAL));
 
         JLabel titulo = new JLabel(Constantes.TITULO_VENTANA, SwingConstants.CENTER);
-        titulo.setFont(titulo.getFont().deriveFont(32f));
+        titulo.setFont(titulo.getFont().deriveFont(Constantes.FUENTE_TITULO));
         add(titulo);
 
         JPanel filaApodo = new JPanel(new FlowLayout());
@@ -84,12 +86,12 @@ public class PanelLobby extends JPanel {
         etiquetaMensaje.setText(texto);
     }
 
-    public String getTextoMensaje() {
+    String getTextoMensaje() {
         return etiquetaMensaje.getText();
     }
 
-    public void setApodo(String apodo) { campoApodo.setText(apodo); }
-    public void setCodigo(String codigo) { campoCodigo.setText(codigo); }
+    void setApodo(String apodo) { campoApodo.setText(apodo); }
+    void setCodigo(String codigo) { campoCodigo.setText(codigo); }
 
     private class AccionCrear implements ActionListener {
         @Override

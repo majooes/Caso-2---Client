@@ -45,7 +45,7 @@ public class PanelJuego extends JPanel implements ObservadorModelo, ActionListen
         this.controlador = controlador;
         this.mouse = mouse;
         setPreferredSize(new Dimension(Constantes.ANCHO_ZONA, Constantes.ALTO_ZONA));
-        setLayout(new FlowLayout(FlowLayout.CENTER, 8, 6));
+        setLayout(new FlowLayout(FlowLayout.CENTER, Constantes.ESPACIO_BOTONES_ZONA_X, Constantes.ESPACIO_BOTONES_ZONA_Y));
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
         temporizador = new Timer(Constantes.MS_POR_SEGUNDO / Constantes.FPS, this);
@@ -79,40 +79,37 @@ public class PanelJuego extends JPanel implements ObservadorModelo, ActionListen
         int cx = Constantes.ANCHO_ZONA / 2;
         int cy = Constantes.ALTO_ZONA / 2;
 
-        List<int[]> tramos = new ArrayList<>();
+        List<Tramo> tramos = new ArrayList<>();
         if (columna > 0) {
-            tramos.add(new int[] {cx, cy, 0, cy});
+            tramos.add(new Tramo(cx, cy, 0, cy));
         }
         if (columna < Constantes.COLUMNAS_MAPA - 1) {
-            tramos.add(new int[] {cx, cy, Constantes.ANCHO_ZONA, cy});
+            tramos.add(new Tramo(cx, cy, Constantes.ANCHO_ZONA, cy));
         }
         if (fila > 0) {
-            tramos.add(new int[] {cx, cy, cx, 0});
+            tramos.add(new Tramo(cx, cy, cx, 0));
         }
         if (fila < Constantes.FILAS_MAPA - 1) {
-            tramos.add(new int[] {cx, cy, cx, Constantes.ALTO_ZONA});
+            tramos.add(new Tramo(cx, cy, cx, Constantes.ALTO_ZONA));
         }
         // Primero el borde oscuro de todos los tramos y encima el color del camino
-        g.setStroke(new BasicStroke(Constantes.ANCHO_CAMINO + 6, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        g.setStroke(new BasicStroke(Constantes.ANCHO_CAMINO + Constantes.BORDE_CAMINO,
+                BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         g.setColor(Constantes.COLOR_BORDE_CAMINO);
-        for (int[] t : tramos) {
-            g.drawLine(t[0], t[1], t[2], t[3]);
+        for (Tramo t : tramos) {
+            g.drawLine(t.x1, t.y1, t.x2, t.y2);
         }
         g.setStroke(new BasicStroke(Constantes.ANCHO_CAMINO, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         g.setColor(Constantes.COLOR_CAMINO);
-        for (int[] t : tramos) {
-            g.drawLine(t[0], t[1], t[2], t[3]);
+        for (Tramo t : tramos) {
+            g.drawLine(t.x1, t.y1, t.x2, t.y2);
         }
         g.setStroke(new BasicStroke(1f));
     }
 
     private void dibujarObjetos(Graphics2D g) {
         for (ObjetoVista o : modelo.getObjetos()) {
-            if (Constantes.TIPO_TAZA.equals(o.getTipo())) {
-                dibujarImagen(g, Constantes.IMAGEN_TAZA, o.getPosicion(), Constantes.TAMANO_TAZA);
-            } else if (Constantes.TIPO_BANDERA.equals(o.getTipo())) {
-                dibujarImagen(g, Constantes.IMAGEN_BANDERA, o.getPosicion(), Constantes.TAMANO_BANDERA);
-            }
+            dibujarImagen(g, o.getTipo().getImagen(), o.getPosicion(), o.getTipo().getTamano());
         }
     }
 
@@ -123,15 +120,19 @@ public class PanelJuego extends JPanel implements ObservadorModelo, ActionListen
             int medio = Constantes.TAMANO_ANIMAL / 2;
 
             g.setColor(colorDe(a));
-            g.setStroke(new BasicStroke(3f));
-            g.drawOval((int) p.getX() - medio - 2, (int) p.getY() - medio - 2,
-                       Constantes.TAMANO_ANIMAL + 4, Constantes.TAMANO_ANIMAL + 4);
+            g.setStroke(new BasicStroke(Constantes.GROSOR_ANILLO));
+            g.drawOval((int) p.getX() - medio - Constantes.MARGEN_ANILLO,
+                       (int) p.getY() - medio - Constantes.MARGEN_ANILLO,
+                       Constantes.TAMANO_ANIMAL + 2 * Constantes.MARGEN_ANILLO,
+                       Constantes.TAMANO_ANIMAL + 2 * Constantes.MARGEN_ANILLO);
             dibujarImagen(g, a.getEspecie().toLowerCase(), p, Constantes.TAMANO_ANIMAL);
             if (a.isSeleccionado()) {
                 g.setColor(Constantes.COLOR_SELECCION);
-                g.setStroke(new BasicStroke(3f));
-                g.drawOval((int) p.getX() - medio - 6, (int) p.getY() - medio - 6,
-                           Constantes.TAMANO_ANIMAL + 12, Constantes.TAMANO_ANIMAL + 12);
+                g.setStroke(new BasicStroke(Constantes.GROSOR_ANILLO));
+                g.drawOval((int) p.getX() - medio - Constantes.MARGEN_ANILLO_SELECCION,
+                           (int) p.getY() - medio - Constantes.MARGEN_ANILLO_SELECCION,
+                           Constantes.TAMANO_ANIMAL + 2 * Constantes.MARGEN_ANILLO_SELECCION,
+                           Constantes.TAMANO_ANIMAL + 2 * Constantes.MARGEN_ANILLO_SELECCION);
             }
             g.setStroke(new BasicStroke(1f));
             dibujarBarraEnergia(g, a, p);
@@ -142,7 +143,7 @@ public class PanelJuego extends JPanel implements ObservadorModelo, ActionListen
     private void dibujarBarraEnergia(Graphics2D g, AnimalVista a, Punto p) {
         double proporcion = Math.max(0.0, Math.min(1.0, a.getEnergia() / (double) Constantes.MAX_ENERGIA));
         int x = (int) p.getX() - Constantes.ANCHO_BARRA_ENERGIA / 2;
-        int y = (int) p.getY() - Constantes.TAMANO_ANIMAL / 2 - 12;
+        int y = (int) p.getY() - Constantes.TAMANO_ANIMAL / 2 - Constantes.DISTANCIA_BARRA_ENERGIA;
         g.setColor(Constantes.COLOR_BARRA_FONDO);
         g.fillRect(x, y, Constantes.ANCHO_BARRA_ENERGIA, Constantes.ALTO_BARRA_ENERGIA);
         g.setColor(proporcion < Constantes.ENERGIA_BAJA
@@ -173,11 +174,12 @@ public class PanelJuego extends JPanel implements ObservadorModelo, ActionListen
                 modelo.getTazasConsumidas(), modelo.getBotsEliminados(), modelo.getZonaActual() + 1);
         int alto = g.getFontMetrics().getHeight();
         int ancho = g.getFontMetrics().stringWidth(texto);
-        int y = Constantes.ALTO_ZONA - 10;
+        int y = Constantes.ALTO_ZONA - Constantes.DESPEGUE_HUD;
         g.setColor(Constantes.COLOR_HUD_FONDO);
-        g.fillRect(6, y - alto + 4, ancho + 12, alto + 4);
+        g.fillRect(Constantes.MARGEN_HUD, y - alto + Constantes.AJUSTE_VERTICAL_HUD,
+                ancho + 2 * Constantes.MARGEN_HUD, alto + Constantes.AJUSTE_VERTICAL_HUD);
         g.setColor(Constantes.COLOR_HUD_TEXTO);
-        g.drawString(texto, 12, y);
+        g.drawString(texto, 2 * Constantes.MARGEN_HUD, y);
     }
 
     /** Dibuja una imagen del caché centrada en el punto. Si no existe, no dibuja nada. */
@@ -225,7 +227,7 @@ public class PanelJuego extends JPanel implements ObservadorModelo, ActionListen
         repaint();
     }
 
-    public int contarBotonesZona() {
+    int contarBotonesZona() {
         int total = 0;
         for (Component c : getComponents()) {
             if (c instanceof JButton) {
@@ -258,6 +260,21 @@ public class PanelJuego extends JPanel implements ObservadorModelo, ActionListen
         @Override
         public void actionPerformed(ActionEvent e) {
             controlador.cambiarZona(idZona);
+        }
+    }
+
+    /** Segmento de camino, de un punto a otro, en coordenadas de la zona. */
+    private static class Tramo {
+        private final int x1;
+        private final int y1;
+        private final int x2;
+        private final int y2;
+
+        Tramo(int x1, int y1, int x2, int y2) {
+            this.x1 = x1;
+            this.y1 = y1;
+            this.x2 = x2;
+            this.y2 = y2;
         }
     }
 }

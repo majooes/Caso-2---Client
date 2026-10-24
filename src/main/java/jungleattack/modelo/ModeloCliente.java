@@ -117,9 +117,11 @@ public class ModeloCliente {
         objetos = new ArrayList<>();
         for (JsonElement e : leerArreglo(c, Constantes.JSON_OBJETOS)) {
             JsonObject o = e.getAsJsonObject();
-            objetos.add(new ObjetoVista(
-                    leerTexto(o, Constantes.JSON_TIPO_OBJETO, ""),
-                    new Punto(leerDouble(o, Constantes.JSON_X), leerDouble(o, Constantes.JSON_Y))));
+            TipoObjeto tipo = TipoObjeto.buscar(leerTexto(o, Constantes.JSON_TIPO_OBJETO, ""));
+            if (tipo != null) {
+                objetos.add(new ObjetoVista(tipo,
+                        new Punto(leerDouble(o, Constantes.JSON_X), leerDouble(o, Constantes.JSON_Y))));
+            }
         }
 
         actualizarAnimales(leerArreglo(c, Constantes.JSON_ANIMALES));
